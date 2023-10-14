@@ -1,0 +1,215 @@
+{% extends 'adminspace/base.html' %}
+{% block title %}Collaborateur{% endblock title %}
+{% block content %}
+<div class="data-table-area mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="sparkline13-list">
+                    <div class="sparkline13-hd">
+                        <div class="main-sparkline13-hd">
+                            <h1>Mes Collaborateurs</h1>
+                        </div>
+                    </div>
+                    <div class="sparkline13-graph">
+                        <div class="datatable-dashv1-list custom-datatable-overright">
+                            <button type="button" class="btn btn-custon-rounded-four" style="background-color: #13372b; color: white;" data-toggle="modal" data-target="#AjoutColl">Ajouter un collaborateur</button>
+                    <div class="sparkline13-graph"> 
+                            <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
+                                data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                                <thead>
+                                    <tr>
+                                        <th data-field="state" data-checkbox="true"></th>
+                                        <th data-field="id">ID</th>
+                                        <th data-field="nom " >Nom</th>
+                                        <th data-field="prenoms" >Prénoms</th>
+                                        <th data-field="phone" >Téléphone</th>
+                                        <th data-field="email" >Email</th>
+                                        <th data-field="role" >Role</th>
+                                        <th data-field="action">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for collaborateur in collaborateurs %}
+                                    <tr>
+                                        <td></td>
+                                        <td>{{forloop.counter}}</td>
+                                        <td>{{collaborateur.first_name}}</td>
+                                        <td>{{collaborateur.last_name}}</td>
+                                        <td>{{collaborateur.phone}}</td>
+                                        <td>{{collaborateur.email}}</td>
+                                        <td>{{collaborateur.service.name}}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-custon-four btn-default" data-toggle="modal" data-target="#ModifColl{{collaborateur.id}}"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                                            <a href="{% url 'adminspace:delete-collaborateur' collaborateur.id %}" class="btn btn-custon-four btn-default"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                        </td>
+                                        <!-- modal modif collaborateur-->
+                                        <div id="ModifColl{{collaborateur.id}}" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="row">
+                                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="sparkline16-list responsive-mg-b-30">
+                                                                <div class="sparkline16-hd">
+                                                                    <div class="main-sparkline16-hd">
+                                                                        <h1>Modification de collaborateur</h1>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="sparkline16-graph">
+                                                                    <div class="date-picker-inner">
+                                                                        <form action="{% url 'adminspace:update-collaborateur' %}" method="post">
+                                                                            {% csrf_token %}
+                                                                            <input type="hidden" name="collaborateur" value="{{collaborateur.id}}">
+                                                                            <div class="form-group data-custon-pick" id="data_1">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Nom</span>
+                                                                                    <input type="text" name="first_name" class="form-control" value="{{collaborateur.first_name}}" required>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group data-custon-pick" id="data_1">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Prénoms</span>
+                                                                                    <input type="text" name="last_name" class="form-control" value="{{collaborateur.last_name}}" required>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Mot de passe</span>
+                                                                                    <input type="password" name="password" class="form-control">
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Téléphone</span>
+                                                                                    <input type="number" name="phone" class="form-control" value="{{collaborateur.phone}}" required>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Email</span>
+                                                                                    <input type="email" name="email" class="form-control" value="{{collaborateur.email}}" required>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group data-custon-pick" id="data_1">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Rôle</span>
+                                                                                    <select class="form-control custom-select-value" name="service">
+                                                                                        {% for service in services %}
+                                                                                        {% if collaborateur.service.id == service.id %}
+                                                                                        <option selected value="{{service.id}}">{{service.name}}</option>{% else %}
+                                                                                        <option value="{{service.id}}">{{service.name}}</option>{% endif %}
+                                                                                        
+                                                                                        {% endfor %}
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="login-btn-inner">
+                                                                                    <button class="btn btn-sm btn-primary pull-right login-submit-cs" type="submit">Modifier</button>
+                                                                            </div> <br>
+
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- modal 1-->
+                                    </tr>
+                                    {% endfor %}
+ 
+                                </tbody>
+                            </table>
+
+
+
+                            <!-- modal ajout collaborateur-->
+                            <div id="AjoutColl" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="sparkline16-list responsive-mg-b-30">
+                                                    <div class="sparkline16-hd">
+                                                        <div class="main-sparkline16-hd">
+                                                            <h1>Ajout de collaborateur</h1>
+                                                        </div>
+                                                    </div>
+                                                    <div class="sparkline16-graph">
+                                                        <div class="date-picker-inner">
+                                                            <form action="{% url 'adminspace:add-collaborateur' %}" method="post">
+                                                                {% csrf_token %}   
+                                                                <div class="form-group data-custon-pick" id="data_1">
+                                                                    <div class="input-group text">
+                                                                        <span class="input-group-addon">Nom</span>
+                                                                        <input type="text" name="first_name" class="form-control" required>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group data-custon-pick" id="data_1">
+                                                                    <div class="input-group text">
+                                                                        <span class="input-group-addon">Prénoms</span>
+                                                                        <input type="text" name="last_name" class="form-control" required>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group data-custon-pick" id="data_2">
+                                                                    <div class="input-group text">
+                                                                        <span class="input-group-addon">Mot de passe</span>
+                                                                        <input type="password" name="password" class="form-control" required>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group data-custon-pick" id="data_2">
+                                                                    <div class="input-group text">
+                                                                        <span class="input-group-addon">Téléphone</span>
+                                                                        <input type="number" name="phone" class="form-control" required>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group data-custon-pick" id="data_2">
+                                                                    <div class="input-group text">
+                                                                        <span class="input-group-addon">Email</span>
+                                                                        <input type="email" name="email" class="form-control" required>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group data-custon-pick" id="data_1">
+                                                                    <div class="input-group text">
+                                                                        <span class="input-group-addon">Service</span>
+                                                                        <select class="form-control custom-select-value" name="service">
+                                                                            {% for service in services %}
+                                                                            <option value="{{service.id}}">{{service.name}}</option>
+                                                                            {% endfor %}
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="login-btn-inner">
+                                                                        <button class="btn btn-sm btn-primary pull-right login-submit-cs" type="submit">Ajouter</button>
+                                                                </div> <br>
+
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- modal 1-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <br>
+{% endblock content %}

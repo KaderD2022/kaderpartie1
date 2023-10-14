@@ -1,0 +1,63 @@
+{% extends 'medecinespace/base.html' %}
+{% block title %}File d'attente{% endblock title %}
+{% block content %}
+<div class="data-table-area mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="sparkline13-list">
+                    <div class="sparkline13-hd">
+                        <div class="main-sparkline13-hd">
+                            <h1 style="color: #13372b;">Patient en Attente</h1>
+                        </div>
+                    </div>
+
+                    <a href="create_patient.html"><button type="button" class="btn btn-custon-rounded-four" style="background-color: #13372b; color: white;">Enregistrer un patient</button></a>
+                    <div class="sparkline13-graph">
+                        <div class="datatable-dashv1-list custom-datatable-overright">
+                          
+                            <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
+                                data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                                <thead>
+                                    <tr>
+                                        <th data-field="state" data-checkbox="true"></th>
+                                        <th data-field="nom" >Nom</th>
+                                        <th data-field="prenoms" >Prénoms</th>
+                                        <th data-field="sexe" >Sexe</th>
+                                        <th data-field="contact">Contact</th>
+                                        <th data-field="temperature" >Température</th>
+                                        <th data-field="poids" >Masse</th>
+                                        <th data-field="heure">Heure d'Arrivé</th>
+                                        <th data-field="action">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for visite in visites %}
+                                    <tr>
+                                        <td>{{forloop.counter}}</td>
+                                        <td>{{visite.patient.first_name}}</td>
+                                        <td>{{visite.patient.last_name}}</td>
+                                        <td>{{visite.patient.sexe}}</td>
+                                        <td>{{visite.patient.phone}}</td>
+                                        <td>{{visite.temperature}}</td>
+                                        <td>{{visite.masse}}</td>
+                                        <td>{{visite.date_time|time:"H:i"}}</td>
+                                        <td>
+                                            <a href="{% url 'medecinespace:add-detail' visite.id %}"><button type="button" class="btn btn-custon-four btn-default"><i class="fa fa-plus" aria-hidden="true"></i></button></a>
+                                            <a href="{% url 'medecinespace:visites' visite.patient.id %}"><button type="button" class="btn btn-custon-four btn-default"><i class="fa fa-list" aria-hidden="true"></i></button>
+                                            </a>
+                                            <button type="button" class="btn btn-custon-four btn-default" data-toggle="modal" data-target="#SupprimRdv"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

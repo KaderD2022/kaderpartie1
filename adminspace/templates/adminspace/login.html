@@ -1,0 +1,58 @@
+{% load static %}
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Administrateur</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% include "adminspace/header_links.html" %}
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+	<![endif]-->
+	<div class="error-pagewrap">
+		<div class="error-page-int">
+			<div class="text-center m-b-md custom-login">
+				<h3 style="color: white;">ESPACE DE CONNEXION</h3>
+				<p style="color: white;">Veuillez renseigner correctement les champs!</p>
+			</div>
+			<div class="content-error">
+				<div class="hpanel">
+          <div class="panel-body">
+            {% if message %}
+          <div class="alert alert-danger alert-dismissible show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>{{message}}</strong> 
+          </div>
+          {% endif %}
+            <form action="{% url 'adminspace:login' %}" method="post" id="loginForm">
+              {% csrf_token %}
+                <div class="form-group">
+                    <label class="control-label" for="username">Nom d'utilisateur</label>
+                    <input type="text" placeholder="exemple@gmail.com" title="Svp entrez votre nom d'utilisateur" required name="username" id="username" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="password">Mot de passe</label>
+                    <input type="password" title="Veuillez entrer votre mot de passe" placeholder="******" required name="password" id="password" class="form-control">
+                </div>
+
+                <button type="submit" class="btn btn-success btn-block loginbtn">CONNEXION</button>
+            </form>
+          </div>
+        </div>
+			</div>
+		</div>   
+    </div>
+    {% include "adminspace/footer.html" %}
+    {% include "adminspace/footer_links.html" %}
+</body>
+
+</html>

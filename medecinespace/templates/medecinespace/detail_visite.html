@@ -1,0 +1,821 @@
+{% extends 'medecinespace/base.html' %}
+{% block title %}Détail visite{% endblock title %}
+{% block content %}
+<!-- Basic Form Start -->
+<div class="basic-form-area mg-b-15">
+    <div class="panel-body admin-panel-content animated bounce">
+        <div class="container-fluid">
+            <div class="row"> 
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="admintab-wrap edu-tab1 mg-t-30">
+                                <ul class="nav nav-tabs custom-menu-wrap custon-tab-menu-style1 tab-menu-right">    
+                                    <li class="active"><a data-toggle="tab" href="#DonneeAdmi"><span class="edu-icon edu-analytics tab-custon-ic"></span>Données Administrative</a></li>
+                                    <li><a data-toggle="tab" href="#Antecedante"><span class="edu-icon edu-analytics-arrow tab-custon-ic"></span>Antécédant</a></li>
+                                    <li><a data-toggle="tab" href="#ExamenCli"><span class="edu-icon edu-analytics-arrow tab-custon-ic"></span>Examen Clinique</a></li>
+                                    <li><a data-toggle="tab" href="#ExamenComp"><span class="edu-icon edu-analytics-arrow tab-custon-ic"></span>Examen complémentaire</a></li>
+                                    <li><a data-toggle="tab" href="#Conduite"><span class="edu-icon edu-analytics-arrow tab-custon-ic"></span>Conduite à Ténir</a></li>
+                                </ul><br>
+
+                                <div class="tab-content">
+
+                                    <div id="DonneeAdmi" class="tab-pane in active animated flipInY custon-tab-style1">
+                                        
+                                        <div class="sparkline10-graph">
+                                            <div class="basic-login-form-ad">
+                                                <div class="row">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="basic-login-inner inline-basic-form">
+                                                            <form action="{% url 'medecinespace:add-donnee-administrative' visite.id %}" method="post">
+                                                                {% csrf_token %}
+                                                                <div class="form-group-inner">
+                                                                    <div class="row">
+            
+            
+                                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                                            <div class="form-group data-custon-pick" id="data_1">
+                                                                                <div class="input-group date">
+                                                                                    <span class="input-group-addon">Mode d'entrée</span>
+                                                                                    <select class="form-control custom-select-value" name="modedentree" disabled>
+                                                                                        <option>De lui même</option>
+                                                                                        <option>Référée d'un centre de santé</option>
+                                                                                        <option>Référé par un tradipaticien</option>
+                                                                                        <option>Autres</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+            
+            
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Nom</span>
+                                                                                    <input type="text" class="form-control" name="nom" value="{{patient.first_name}}" disabled>
+                                                                                </div>
+                                                                            </div>
+            
+            
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Prénoms</span>
+                                                                                    <input type="text" class="form-control" name="prenoms" value="{{patient.last_name}}" disabled>
+                                                                                </div>
+                                                                            </div>
+                                        
+                                        
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Profession</span>
+                                                                                    <input type="text" class="form-control" name="profession" value="" disabled>
+                                                                                </div>
+                                                                            </div>
+                                        
+                                        
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Nationalité</span>
+                                                                                    <input type="text" class="form-control" name="nationnna" value="" disabled>
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Résidence Habituelle</span>
+                                                                                    <input type="text" class="form-control" name="resihab" value="{{patient.habitation}}" disabled>
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Résidence Actuelle</span>
+                                                                                    <input type="text" class="form-control" value="{{patient.habitation}}" name="resiact">
+                                                                                </div>
+                                                                            </div>
+            
+                                                                        </div>
+            
+            
+                                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Contact</span>
+                                                                                    <input type="text" class="form-control" name="contact" value="{{patient.phone}}">
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Age</span>
+                                                                                    <input type="text" class="form-control" name="age" value="">
+                                                                                </div>
+                                                                            </div>
+                                        
+                                        
+                                                                            <div class="form-group data-custon-pick" id="data_1">
+                                                                                <div class="input-group date">
+                                                                                    <span class="input-group-addon">Sexe</span>
+                                                                                    <select class="form-control custom-select-value" name="sexe" >
+                                                                                        <option>{{patient.sexe}}</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+            
+            
+                                                                            <div class="form-group data-custon-pick" id="data_1">
+                                                                                <div class="input-group date">
+                                                                                    <span class="input-group-addon">Scolarisé</span>
+                                                                                    <select class="form-control custom-select-value" name="school">
+                                                                                        <option value="Oui">Oui</option>
+                                                                                        <option value="Non">Non</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+            
+            
+            
+                                                                            <div class="form-group data-custon-pick" id="data_1">
+                                                                                <div class="input-group date">
+                                                                                    <span class="input-group-addon">Statut Conjugal</span>
+                                                                                    <select class="form-control custom-select-value" name="conjugal_status" >
+                                                                                        <option value="Marié">Marié</option>
+                                                                                        <option value="Concubinage">Concubinage</option>
+                                                                                        <option value="Célibataire">Célibataire</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+            
+            
+            
+                                                                            <div class="form-group data-custon-pick" id="data_1">
+                                                                                <div class="input-group date">
+                                                                                    <span class="input-group-addon">Type de population</span>
+                                                                                    <select class="form-control custom-select-value" name="type_populate" >
+                                                                                        <option value="Population générale">Population générale</option>
+                                                                                        <option value="TS">TS</option>
+                                                                                        <option value="UD">UD</option>
+                                                                                        <option value="HSH">HSH</option>
+                                                                                        <option value="PC">PC</option>
+                                                                                        <option value="AUTRE POPULATION A HAUT RISQUE">AUTRE POPULATION A HAUT RISQUE</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+            
+            
+                                                                            <div class="form-group data-custon-pick" id="data_1">
+                                                                                <div class="input-group date">
+                                                                                    <span class="input-group-addon">Protection sociale</span>
+                                                                                    <select class="form-control custom-select-value" name="social_protection" >
+                                                                                        <option value="Non assuré">Non assuré</option>
+                                                                                        <option value="CMU">CMU</option>
+                                                                                        <option value="Assurance privée (AP)">Assurance privée (AP)</option>
+                                                                                        <option value="CMU + AP">CMU + AP</option>
+                                                                                        <option value="Indigent">Indigent</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                            
+            
+                                                                        </div>
+                                                                        
+                                                                    </div>
+                                                                    <center><button type="submit" class="btn btn-custon-rounded-four" style="background-color: #13372b; color: white;">Enregistrer</button><br><br></center>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div id="Antecedante" class="tab-pane  animated flipInY custon-tab-style1">
+                                        
+                                        <div class="sparkline10-graph">
+                                            <div class="basic-login-form-ad">
+                                                <div class="row">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="basic-login-inner inline-basic-form">
+                                                            <form action="{% url 'medecinespace:add-antecedant' visite.id %}" method="post">
+                                                                {% csrf_token %}
+                                                                <div class="form-group-inner">
+                                                                    <div class="row">
+            
+            
+                                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+                                                                            
+
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Traitement Médical Antérieur</span>
+                                                                                    <input type="text" class="form-control" name="anterieur_traitement">
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                            <div class="form-group data-custon-pick" id="data_1">
+                                                                                <div class="input-group date">
+                                                                                    <span class="input-group-addon">HTA</span>
+                                                                                    <select class="form-control custom-select-value" name="hta" >
+                                                                                        <option></option>
+                                                                                        <option value="Oui">Oui</option>
+                                                                                        <option value="Non">Non</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                            <div class="form-group data-custon-pick" id="data_1">
+                                                                                <div class="input-group date">
+                                                                                    <span class="input-group-addon">Diabète</span>
+                                                                                    <select class="form-control custom-select-value" name="diabete" >
+                                                                                        <option></option>
+                                                                                        <option value="Oui">Oui</option>
+                                                                                        <option value="Non">Non</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Autres</span>
+                                                                                    <input type="text" class="form-control" name="other">
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Chirugicaux</span>
+                                                                                    <input type="text" class="form-control" name="chirugical">
+                                                                                </div>
+                                                                            </div>
+
+                                                                            
+            
+                                                                        </div>
+            
+            
+                                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">DDR</span>
+                                                                                    <input type="date" class="form-control" name="ddr">
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group data-custon-pick" id="data_1">
+                                                                                <div class="input-group date">
+                                                                                    <span class="input-group-addon">Grossesse en cours</span>
+                                                                                    <select class="form-control custom-select-value" name="current_pregment" >
+                                                                                        <option></option>
+                                                                                        <option value="Oui">Oui</option>
+                                                                                        <option value="Non">Non</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+
+
+
+                                                                            <div class="form-group data-custon-pick" id="data_1">
+                                                                                <div class="input-group date">
+                                                                                    <span class="input-group-addon">Tabac</span>
+                                                                                    <select class="form-control custom-select-value" name="tabac" >
+                                                                                        <option></option>
+                                                                                        <option value="Oui">Oui</option>
+                                                                                        <option value="Non">Non</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                            <div class="form-group data-custon-pick" id="data_1">
+                                                                                <div class="input-group date">
+                                                                                    <span class="input-group-addon">Alcool</span>
+                                                                                    <select class="form-control custom-select-value" name="alchool">
+                                                                                        <option></option>
+                                                                                        <option value="Oui">Oui</option>
+                                                                                        <option value="Non">Non</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                            <div class="form-group data-custon-pick" id="data_1">
+                                                                                <div class="input-group date">
+                                                                                    <span class="input-group-addon">Type de visite</span>
+                                                                                    <select class="form-control custom-select-value" name="visit_type" >
+                                                                                        <option></option>
+                                                                                        <option value="Consultation">Consultation</option>
+                                                                                        <option value="Contrôle">Contrôle</option>
+                                                                                        <option value="Soins">Soins</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                        
+                                                                    </div>
+
+                                                                    <center><button type="submit" class="btn btn-custon-rounded-four" style="background-color: #13372b; color: white;">Enregistrer</button><br><br></center>
+
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div id="ExamenCli" class="tab-pane  animated flipInY custon-tab-style1">
+                                        
+                                        <div class="sparkline10-graph">
+                                            <div class="basic-login-form-ad">
+                                                <div class="row">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="basic-login-inner inline-basic-form">
+                                                            <form action="#">
+                                                                <div class="form-group-inner">
+                                                                    <div class="row">
+            
+            
+                                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+                                                                            
+
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Motif de consultation</span>
+                                                                                    <input type="text" class="form-control" name="motif" value=" " >
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Poids</span>
+                                                                                    <input type="text" class="form-control" name="poids" value=" " >
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Taille</span>
+                                                                                    <input type="text" class="form-control" name="Taille" placeholder="Taille en m" >
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Imc</span>
+                                                                                    <input type="text" class="form-control" name="imc" >
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Température</span>
+                                                                                    <input type="text" class="form-control" name="Temperature" placeholder="°C" >
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Fréquence Respiratoire</span>
+                                                                                    <input type="text" class="form-control" name="freqresp" placeholder="cycle/mn" >
+                                                                                </div>
+                                                                            </div>  
+
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Zscore</span>
+                                                                                    <input type="text" class="form-control" name="Zscore">
+                                                                                </div>
+                                                                            </div>
+            
+                                                                        </div>
+            
+            
+                                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+            
+
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">TA</span>
+                                                                                    <input type="text" class="form-control" name="ta" placeholder="Mmhg" >
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Pouls</span>
+                                                                                    <input type="text" class="form-control" name="Pouls" placeholder="Btt/mn" >
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Périmètre Branchial</span>
+                                                                                    <input type="text" class="form-control" name="PB" placeholder="cm" >
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Périmètre cranien</span>
+                                                                                    <input type="text" class="form-control" name="PC" placeholder="cm" >
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                            <div class="form-group data-custon-pick" id="data_1">
+                                                                                <div class="input-group date">
+                                                                                    <span class="input-group-addon">Tuberculose</span>
+                                                                                    <select class="form-control custom-select-value" name="hta" >
+                                                                                        <option>Oui</option>
+                                                                                        <option>Non</option>
+                                                                                        <option>NA</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Examen physique</span>
+                                                                                    <input type="text" class="form-control" name="ep">
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Diagnostique Retenu</span>
+                                                                                    <input type="text" class="form-control" name="dr">
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Autre Patologie</span>
+                                                                                    <input type="text" class="form-control" name="ap">
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                        
+                                                                    </div>
+
+                                                                    <center><button type="button" class="btn btn-custon-rounded-four" style="background-color: #13372b; color: white;" data-toggle="modal" data-target="#AjoutPrescri">Enregistrer</button><br><br></center>
+
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    
+                                    <div id="ExamenComp" class="tab-pane  animated flipInY custon-tab-style1">
+                                        
+                                        <div class="sparkline10-graph">
+                                            <div class="basic-login-form-ad">
+                                                <div class="row">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="basic-login-inner inline-basic-form">
+                                                            <form action="#">
+                                                                <div class="form-group-inner">
+                                                                    <div class="row">
+            
+            
+                                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+
+                                                                            <div class="form-group data-custon-pick" id="data_1">
+                                                                                <div class="input-group date">
+                                                                                    <span class="input-group-addon">Tdr Paludisme</span>
+                                                                                    <select class="form-control custom-select-value" name="dtrp" >
+                                                                                        <option>Positif</option>
+                                                                                        <option>Négatif</option>
+                                                                                        <option>Non réalisé</option>
+                                                                                        <option>NA</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group data-custon-pick" id="data_1">
+                                                                                <div class="input-group date">
+                                                                                    <span class="input-group-addon">Goute épaisse</span>
+                                                                                    <select class="form-control custom-select-value" name="ge" >
+                                                                                        <option>Positive</option>
+                                                                                        <option>Négative</option>
+                                                                                        <option>Non réalisé</option>
+                                                                                        <option>NA</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group data-custon-pick" id="data_1">
+                                                                                <div class="input-group date">
+                                                                                    <span class="input-group-addon">MILDA Enfant de 12 à 59 mois: Eligible</span>
+                                                                                    <select class="form-control custom-select-value" name="MILDA" >
+                                                                                        <option>Oui</option>
+                                                                                        <option>Non réalisé</option>
+                                                                                        <option>NA</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group data-custon-pick" id="data_1">
+                                                                                <div class="input-group date">
+                                                                                    <span class="input-group-addon"> Remise MILDA Enfant de 12 à 59 mois: Eligible</span>
+                                                                                    <select class="form-control custom-select-value" name="Remise MILDA" >
+                                                                                        <option>Oui</option>
+                                                                                        <option>Non réalisé</option>
+                                                                                        <option>NA</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group data-custon-pick" id="data_1">
+                                                                                <div class="input-group date">
+                                                                                    <span class="input-group-addon">CDIP proposé</span>
+                                                                                    <select class="form-control custom-select-value" name="cdipp" >
+                                                                                        <option></option>
+                                                                                        <option>Oui</option>
+                                                                                        <option>Non</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+            
+            
+                                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+
+                                                                            <div class="form-group data-custon-pick" id="data_1">
+                                                                                <div class="input-group date">
+                                                                                    <span class="input-group-addon">CDIP réalisé</span>
+                                                                                    <select class="form-control custom-select-value" name="cdipr" >
+                                                                                        <option></option>
+                                                                                        <option>Oui</option>
+                                                                                        <option>Non</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                            
+
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Code dépistage Client</span>
+                                                                                    <input type="text" class="form-control" name="cdc" >
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Glycémie : à jeûn</span>
+                                                                                    <input type="text" class="form-control" name="gaj" placeholder="g/l" >
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Glycémie : Non à jeûn</span>
+                                                                                    <input type="text" class="form-control" name="gnaj" placeholder="g/l" >
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group data-custon-pick" id="data_2">
+                                                                                <div class="input-group text">
+                                                                                    <span class="input-group-addon">Autres Examen</span>
+                                                                                    <input type="text" class="form-control" name="Aexa">
+                                                                                </div>
+                                                                            </div>
+
+                                                                            
+
+                                                                        </div>
+                                                                        
+                                                                    </div>
+
+                                                                    <center><button type="button" class="btn btn-custon-rounded-four" style="background-color: #13372b; color: white;" data-toggle="modal" data-target="#AjoutPrescri">Enregistrer</button><br><br></center>
+
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    
+
+                                    <div id="Conduite" class="tab-pane animated flipInY custon-tab-style1">  
+
+                                        <button type="button" class="btn btn-custon-rounded-four" style="background-color: #13372b; color: white;" data-toggle="modal" data-target="#AjoutPrescri">Prescrire un produit</button><br><br>
+
+                                        <div class="sparkline10-graph">
+                                            <div class="static-table-list">
+                                                <table class="table border-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Nom du produit</th>
+                                                            <th>Quantité</th>
+                                                            <th>Posologie</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Paracétamole</td>
+                                                            <td>3</td>
+                                                            <td>Boire chaque matin et soir</td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-custon-four btn-default" data-toggle="modal" data-target="#SupprimPrescri"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                                <button type="button" class="btn btn-custon-four btn-default" data-toggle="modal" data-target="#Modifprecr"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                        
+                                
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Ajout de prescription-->
+    <div id="AjoutPrescri" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="sparkline16-list responsive-mg-b-30">
+                            <div class="sparkline16-hd">
+                                <div class="main-sparkline16-hd">
+                                    <h1>Ajout de prescription</h1>
+                                </div>
+                            </div>
+                            <div class="sparkline16-graph">
+                                <div class="date-picker-inner">
+
+
+                                    <form action="">
+
+                                            
+                                        <div class="form-group data-custon-pick" id="data_1">
+                                            <div class="input-group date">
+                                                <span class="input-group-addon">Nom</span>
+                                                <input type="text" class="form-control" value="">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group data-custon-pick" id="data_2">
+                                            <div class="input-group text">
+                                                <span class="input-group-addon">Quantité</span>
+                                                <input type="text" class="form-control" value="">
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="form-group data-custon-pick" id="data_2">
+                                            <div class="input-group text">
+                                                <span class="input-group-addon">Posologie</span>
+                                                <input type="text" class="form-control" value="">
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="login-btn-inner">
+                                                <button class="btn btn-sm btn-primary pull-right login-submit-cs" type="submit">Ajouter</button>
+                                        </div> <br>
+
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </div>
+    <!-- Ajout de prescription-->
+
+
+
+    <!-- supprimer rdv -->
+    <div id="SupprimPrescri" class="modal modal-edu-general FullColor-popup-DangerModal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-close-area modal-close-df">
+                    <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                </div>
+                <div class="modal-body">
+                    <h2>Danger!</h2>
+                    <p>Voulez vous vraiment supprimer cette precription ?</p>
+                </div>
+                <div class="modal-footer danger-md">
+                    <a data-dismiss="modal" href="#">Non</a>
+                    <a href="#">Oui</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- supprimer rdv -->
+
+
+
+    <!-- Ajout de modification prescription-->
+    <div id="Modifprecr" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="sparkline16-list responsive-mg-b-30">
+                            <div class="sparkline16-hd">
+                                <div class="main-sparkline16-hd">
+                                    <h1>Modifier prescription</h1>
+                                </div>
+                            </div>
+                            <div class="sparkline16-graph">
+                                <div class="date-picker-inner">
+
+
+                                <form action="">
+
+                                        
+                                    <div class="form-group data-custon-pick" id="data_1">
+                                        <div class="input-group date">
+                                            <span class="input-group-addon">Nom</span>
+                                            <input type="text" class="form-control" value="Paracetamole">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group data-custon-pick" id="data_2">
+                                        <div class="input-group text">
+                                            <span class="input-group-addon">Quantité</span>
+                                            <input type="text" class="form-control" value="3">
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="form-group data-custon-pick" id="data_2">
+                                        <div class="input-group text">
+                                            <span class="input-group-addon">Posologie</span>
+                                            <input type="text" class="form-control" value="Boire matin et soir">
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="login-btn-inner">
+                                            <button class="btn btn-sm btn-primary pull-right login-submit-cs" type="submit">Modifier</button>
+                                    </div> <br>
+
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </div>
+    <!-- Ajout de modification prescription-->
+</div>
+<!-- Basic Form End-->
+{% endblock content %}

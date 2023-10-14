@@ -1,0 +1,221 @@
+{% extends 'medecinespace/base.html' %}
+{% block title %}Patients{% endblock title %}
+{% block content %}
+<!-- Static Table Start -->
+<div class="data-table-area mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="sparkline13-list">
+                    <div class="sparkline13-hd">
+                        <div class="main-sparkline13-hd">
+                            <h1>Liste de patients</h1>
+                        </div>
+                    </div>
+                    <div class="sparkline13-graph">
+                        <div class="datatable-dashv1-list custom-datatable-overright">
+                            <button type="button" class="btn btn-custon-rounded-four" style="background-color: #13372b; color: white;" data-toggle="modal" data-target="#EnregistrerNouveau">Enregistrer un patient</button>
+
+                            <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
+                                data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                                <thead>
+                                    <tr>
+                                        <th data-field="state" data-checkbox="true"></th>
+                                        <th data-field="id">ID</th>
+                                        <th data-field="nom " >Nom</th>
+                                        <th data-field="prenoms" >Prénoms</th>
+                                        <th data-field="sexe" >Sexe</th>
+                                        <th data-field="age" >Age</th>
+                                        <th data-field="telephone" >Telephone</th>
+                                        <th data-field="email">Email</th>
+                                        <th data-field="d_consult" >Derniere consultation</th>
+                                        <th data-field="d_DIA" >Dernier diagnostique</th>
+                                        <th data-field="action">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for patient in patients %}
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td>{{patient.first_name}}</td>
+                                        <td>{{patient.last_name}}</td>
+                                        <td>{{patient.sexe}}</td>
+                                        <td>30</td>
+                                        <td>{{patient.phone}}</td>
+                                        <td>{{patient.email}}</td>
+                                        <td>{{patient.visite_set.last.date_time}}</td>
+                                        <td>Paludisme</td>
+                                        <td>
+                                            <a href="{% url 'medecinespace:visites' patient.id %}" class="btn btn-custon-four btn-default">
+                                                <i class="fa fa-list" aria-hidden="true"></i>
+                                            </a>
+                                            <button type="button" class="btn btn-custon-four btn-default" data-toggle="modal" data-target="#InfoBase{{patient.id}}"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                        </td>
+                                    </tr>
+                                    <!-- Information de base a la clinique-->
+                                    <div id="InfoBase{{patient.id}}" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="row">
+                                                    <div class=" ">
+                                                        <div class="sparkline16-list responsive-mg-b-30">
+                                                            <div class="sparkline16-hd">
+                                                                <div class="main-sparkline16-hd">
+                                                                    <h1>Constantes du patient</h1>
+                                                                </div>
+                                                            </div>
+                                                            <div class="sparkline16-graph">
+                                                                <div class="date-picker-inner">
+
+
+                                                                    <form action="" method="post">
+                                                                        {% csrf_token %}
+                                                                        <div class="form-group data-custon-pick" id="data_1">
+                                                                            <div class="input-group date">
+                                                                                <span class="input-group-addon">Taille</span>
+                                                                                <input type="number" name="taille" class="form-control">
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                        <div class="form-group data-custon-pick" id="data_1">
+                                                                            <div class="input-group date">
+                                                                                <span class="input-group-addon">Masse</span>
+                                                                                <input type="number" name="masse" class="form-control"  >
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                        <div class="form-group data-custon-pick" id="data_1">
+                                                                            <div class="input-group date">
+                                                                                <span class="input-group-addon">Température</span>
+                                                                                <input type="number" name="temperature" class="form-control" >
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                        <div class="form-group data-custon-pick" id="data_1">
+                                                                            <div class="input-group date">
+                                                                                <span class="input-group-addon">Motifs</span>
+                                                                                <textarea name="motifs" row="1" class="form-control"></textarea>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="login-btn-inner">
+                                                                                <button class="btn btn-sm btn-primary pull-right login-submit-cs" type="submit">Ajouter</button>
+                                                                        </div> <br>
+
+                                                                    </form>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- modal 1-->
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                              <!-- modal cfeation de patient-->
+                              <div id="EnregistrerNouveau" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="sparkline16-list responsive-mg-b-30">
+                                                    <div class="sparkline16-hd">
+                                                        <div class="main-sparkline16-hd">
+                                                            <h1>Creation de patient</h1>
+                                                        </div>
+                                                    </div>
+                                                    <div class="sparkline16-graph">
+                                                        <div class="date-picker-inner">
+                                                            <form action="" method="post">
+                                                                {% csrf_token %}
+                                                                <div class="form-group data-custon-pick" id="data_1">
+                                                                    <div class="input-group date">
+                                                                        <span class="input-group-addon">Nom</span>
+                                                                        <input type="text" name="first_name" class="form-control">
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div class="form-group data-custon-pick" id="data_1">
+                                                                    <div class="input-group date">
+                                                                        <span class="input-group-addon">Prénoms</span>
+                                                                        <input type="text" name="last_name" class="form-control">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group data-custon-pick" id="data_1">
+                                                                    <div class="input-group date">
+                                                                        <span class="input-group-addon">Naissance</span>
+                                                                        <input type="date" name="birthday" class="form-control">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group data-custon-pick" id="data_1">
+                                                                    <div class="input-group date">
+                                                                        <span class="input-group-addon">Sexe</span>
+                                                                        <select class="form-control custom-select-value" name="sexe" >
+                                                                            <option value="M">Masculin</option>
+                                                                            <option value="F">Feminin</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div class="form-group data-custon-pick" id="data_1">
+                                                                    <div class="input-group date">
+                                                                        <span class="input-group-addon">Contact</span>
+                                                                        <input type="number" name="phone" class="form-control">
+                                                                    </div>
+                                                                </div>
+
+
+
+                                                                <div class="form-group data-custon-pick" id="data_1">
+                                                                    <div class="input-group date">
+                                                                        <span class="input-group-addon">Email</span>
+                                                                        <input type="email" name="email" class="form-control">
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div class="form-group data-custon-pick" id="data_1">
+                                                                    <div class="input-group date">
+                                                                        <span class="input-group-addon">Lieu d'habitation</span>
+                                                                        <input type="text" name="habitation" class="form-control">
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div class="login-btn-inner">
+                                                                        <button class="btn btn-sm btn-primary pull-right login-submit-cs" type="submit">Ajouter</button>
+                                                                </div> <br>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                          
+                        </div>
+                             <!-- modal creation de patient-->
+
+
+
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <br>
+{% endblock content %}
